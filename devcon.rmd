@@ -1,0 +1,163 @@
+---
+title: "DevCon 2019 SVM tunning"
+output: html_notebook
+---
+```{r}
+load("./results_svm_devcon_bestmodels.rdata")
+str(results_final_models)
+
+labels_test <- testprop["cancer", ]
+testset <- t(test)
+data_test <- cbind(label = labels_test, testset)
+
+x<-predict(results_final_models[["cancer"]],data_test)
+cor(x = x, y = labels_test, method = "pearson")
+
+results_final_models[["cancer"]]
+```
+```{r}
+library(dplyr)
+results<-read.csv("results_svm_devcon_rank.csv")
+max_results<-results %>% group_by(label_number) %>% filter(pearson == max(pearson)) %>% filter(row_number()==1) %>% arrange(desc(pearson)) 
+
+
+results_nu<-read.csv("results_nu_svm_devcon.csv")
+max_results_nu<-results_nu %>% group_by(label_number) %>% filter(pearson == max(pearson)) %>% filter(row_number()==1) %>% arrange(desc(pearson)) 
+data.frame(max_results$label_number,max_results$pearson,max_results_nu$pearson)
+
+results_radial<-read.csv("results_svm_radial_devcon_1.csv")
+max_results_radial<-results_radial %>% group_by(label_number) %>% filter(pearson == max(pearson)) %>% filter(row_number()==1) %>% arrange(desc(pearson)) 
+
+results_radial_2<-read.csv("results_svm_radial_devcon.csv")
+max_results_radial_2<-results_radial_2 %>% group_by(label_number) %>% filter(pearson == max(pearson)) %>% filter(row_number()==1) %>% arrange(desc(pearson)) 
+
+results_linear_fgdata_cps_2<-read.csv("results_svm_devcon_fgdata_cps.csv")
+max_results_linear_fgdata_cps_2<-results_linear_fgdata_cps_2 %>% group_by(label_number) %>% filter(pearson == max(pearson)) %>% filter(row_number()==1) %>% arrange(desc(pearson)) 
+
+
+data.frame(label=max_results$label_number,eps_linear=max_results$pearson,nu_linear=max_results_nu$pearson,eps_radial=max_results_radial$pearson,eps_radial_2=max_results_radial_2$pearson,eps_linear_fgdata_cps=max_results_linear_fgdata_cps_2$pearson) %>% View()
+```
+
+```{r}
+setwd("/home/harpo/Dropbox/ongoing-work/git-repos/devcon/")
+load("datasets/deconv_data_cps-2.RData")
+library(caret)
+library(e1071)
+library(foreach)
+library(doMC)
+registerDoMC(cores=6)
+
+epsilon_range <- c(0.005, 0.05)
+cost_range <- c(0.0001, 0.001)
+
+
+epsilon_range <- c(0.005, 0.05, 0.1, 0.00005,0.0005)
+cost_range <- c(0.0001, 0.001, 0.01, 0.1, 0.5, 1, 2, 4,8,16,32)
+
+#epsilon_range <- c(0.005)
+#cost_range <- c(0.00001)
+parms <- expand.grid(cost = cost_range, epsilon = epsilon_range)
+
+results_final <-c()
+for (label_number in rownames(trainprop)) {
+  
+  
+  labels <- trainprop[label_number, ]
+  trainset <- t(train)
+  data_train <- cbind(label = labels, trainset)
+  
+  
+  labels_test <- testprop[label_number, ]
+  testset <- t(test)
+  data_test <- cbind(label = labels_test, testset)
+  results <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
+    c <- parms[i,]$cost
+    e <- parms[i,]$epsilon
+    model <- svm(
+      label ~ .,
+      data = data_train,
+      type = "eps-regression",
+      kernel = "linear",
+      cost = c,
+      epsilon = e,
+      probability = F
+    )
+    preds <- predict(model, data_test)
+    spear <- cor(x = preds, y = labels_test, method = "spearman")
+    pears <- cor(x = preds, y = labels_test, method = "pearson")
+    partial_results<-data.frame(label_number,parms[i,], pearson = pears, spearman = spear)
+    #readr::write_csv(partial_results,path=paste(e,"_",c,"_partial_results_svm_devcon.csv"))
+    partial_results 
+    
+  }
+results_final<-rbind(results_final,results)
+readr::write_csv(results_final,path="results_svm_devcon.csv")
+}
+results
+#  tuneResult <- tune(svm, 
+
+#                   train.x=t(train),
+#                   train.y=topredict, 
+#                   validation.x=t(test),
+#                   validation.y= testprop[i,],
+#                   ranges = list(epsilon = epsilon_range, cost = cost_range), 
+#                   type="eps-regression",cross=5,kernel="linear") # eps-regression
+#
+#  SVM_MODEL[[i]]= tuneResult$best.model
+
+```
+
+```{r}
+
+
+
+```
+
+```{r}
+ctrl_fast <- trainControl(method="cv", 
+                     repeats=1,
+                     number=5, 
+                     verboseIter=T,
+                     classProbs=F,
+                     allowParallel = TRUE)  
+```
+
+```{r}
+
+# FOR AT and AT
+svmGrid <- expand.grid( cost = c(1,2,3,4,5,6,7,8,11,12,13,14,15,16,17,18,25,45,64))
+
+
+#svmGrid <- expand.grid(sigma = c(0.005,0.01,0.011,0.009,0.1), C = c(1,2,3,4,5,6,7,8,11,12,13,14,15,16,17,18,25,45,64,256))
+train_formula<-formula(label  ~ .)
+winemodel<- train(train_formula,
+               data = data_train,
+               method = "svmLinear2",   # Radial kernel
+               #method = "nnet",
+               #method = "rf",
+             
+               #method = "pls",
+               #tuneLength = 5,
+               tuneGrid = svmGrid,
+               #preProcess=c("scale","center"),
+               #metric="ROC",
+               #weights = model_weights,
+               trControl = ctrl_fast)
+
+
+#plot(winemodel)
+winemodel
+winemodel$finalModel
+```
+```{r}
+preds <- predict(winemodel,data_test)
+#preds
+#a <- postResample(pred = preds, obs = labels_test )
+cor(x = preds,y=labels_test,method = "spearman")
+cor(x = preds,y=labels_test,method = "pearson")
+
+plot(labels_test ,preds,ylab = "Prediction values",xlab="Actual values",col="orange")
+title("AT")
+abline(0, 1, col = "skyblue", lty = 3)
+```
+

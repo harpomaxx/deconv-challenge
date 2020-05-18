@@ -1,0 +1,150 @@
+---
+title: "Devcon Challenge"
+output: 
+  html_notebook: 
+    code_folding: hide
+    toc: yes
+---
+
+```{r}
+
+```
+
+# Results for liblinear using a full set of  features (noscale) ( 12 - L2-regularized L2-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_12_results_noscale_all_lines.csv")
+a0<-readr::read_csv("./devcon_challenge.liblinear_12_results_noscale_all_lines.csv") %>% filter(!is.na(pearson)) 
+a0
+readr::read_csv("./devcon_challenge.liblinear_12_results_noscale_all_lines.csv") %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+# Results for liblinear  (noscale) 1500 features.  ( 12 - L2-regularized L2-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_12_results_noscale_rf_selected_features_1500_all_lines.csv")
+a6<-readr::read_csv("./devcon_challenge.liblinear_12_results_noscale_rf_selected_features_1500_all_lines.csv") %>% filter(!is.na(pearson)) 
+a6
+readr::read_csv("./devcon_challenge.liblinear_12_results_noscale_rf_selected_features_1500_all_lines.csv") %>% filter(!is.na(pearson))  %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+# Results for liblinear  (noscale) 1000 features. (13 L2-regularized L1-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1000_all_lines.csv")
+a1<-readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1000_all_lines.csv") %>% filter(!is.na(pearson)) 
+a1
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1000_all_lines.csv") %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+
+# Results for liblinear  (noscale) 1500 features. (13 L2-regularized L1-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1500_all_lines.csv")
+
+a2<-readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1500_all_lines.csv") %>% filter(!is.na(pearson)) 
+a2
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1500_all_lines.csv") %>% filter(!is.na(pearson))  %>% summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+
+```
+
+# Results for liblinear  (noscale) 2000 features. (13 L2-regularized L1-loss support vector regression (dual))
+
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_2000_all_lines.csv")
+
+a3<-readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_2000_all_lines.csv") 
+a3
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_2000_all_lines.csv")  %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for glmnet using 5000 features
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_5000_all_lines.csv")
+a4<-readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_5000_all_lines.csv") %>% filter(!is.na(pearson)) 
+a4
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_5000_all_lines.csv") %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for glmnet using 500 features
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_500_all_lines.csv")
+a5<-readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_500_all_lines.csv") 
+a5
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_500_all_lines.csv") %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+
+
+# Results for RF  ~1500 features per tree over ~20000 features
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.rf_results_all_lines.csv")
+r1<-readr::read_csv("./devcon_challenge.rf_results_all_lines.csv") %>% filter(!is.na(pearson)) 
+r1
+readr::read_csv("./devcon_challenge.rf_results_all_lines.csv") %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+
+```
+
+# Results for glmnet using 500 features over 20000
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_500_20000_all_lines.csv")
+r2<-readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_500_20000_all_lines.csv") 
+r2
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_500_20000_all_lines.csv") %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for glmnet using 1000 features over 20000
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1000_20000_all_lines.csv")
+r3<-readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1000_20000_all_lines.csv") 
+r3
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1000_20000_all_lines.csv") %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+# Results for glmnet using 1500 features over 20000
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1500_20000_all_lines.csv")
+r4<-readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1500_20000_all_lines.csv") 
+r4
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1500_20000_all_lines.csv") %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear 13 using 100 features over 20000
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_results_noscale_rf_selected_features_100_20000_all_lines.csv")
+r5<-readr::read_csv("./devcon_challenge.liblinear_results_noscale_rf_selected_features_100_20000_all_lines.csv") 
+r5
+readr::read_csv("./devcon_challenge.liblinear_results_noscale_rf_selected_features_100_20000_all_lines.csv") %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+```{r fig.height=8, fig.width=8}
+library(gridExtra)
+a0$type<-"liblinear12full"
+a1$type<-"liblinear13_1000"
+a2$type<-"liblinear13_1500"
+a3$type<-"liblinear13_2000"
+a4$type<-"glmnet5000"
+a5$type<-"glmnet500"
+a6$type<-"liblinear12_1500"
+r1$type<-"rf_1500_20000"
+r2$type<-"glmet500_20000"
+r3$type<-"glmnet1000_20000"
+r4$type<-"glmnet1500_20000" 
+r5$type<-"liblinear13_100_20000" 
+
+plot2<-rbind(a0,a1,a2,a3,a4,a5,a6,r1,r2,r3,r4,r5) %>% group_by(type,datasets) %>% summarise(pearson=mean(pearson)) %>% arrange(pearson) %>%
+  ggplot()+
+  geom_tile(aes(x=type,y=datasets,fill=pearson))+
+  scale_fill_gradient(low = "red", high = "white",limits=c(0.4, 1),)+
+  theme(axis.text.x=element_text(angle=45,hjust=1))
+  
+  
+plot1<-rbind(a0,a1,a2,a3,a4,a5,a6,r1,r2,r3,r4,r5) %>% group_by(type,datasets) %>% summarise(spearman=mean(spearman)) %>% arrange(spearman) %>%
+  ggplot()+
+  geom_tile(aes(x=type,y=datasets,fill=spearman))+
+  scale_fill_gradient(low = "red", high = "white",limits=c(0.4, 1),)+
+  theme(axis.text.x=element_text(angle=45,hjust=1))
+
+gridExtra::grid.arrange(plot1,plot2,ncol=2)  
+  
+```

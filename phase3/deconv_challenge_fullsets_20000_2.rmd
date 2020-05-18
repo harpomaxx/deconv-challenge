@@ -1,0 +1,465 @@
+---
+title: "Deconv Final Phase partial results (Feature Selection)"
+output: 
+  html_notebook: 
+    code_folding: hide
+    toc: yes
+---
+
+
+
+# Results for glmnet 50 features over 20000 (RF2)
+Results per dataset, person and spearman means, rnaseq means
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_50_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+a0<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+a0
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for glmnet 100 features over 20000 (RF2)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_100_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+a1<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+a1
+
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+
+# Results for glmnet 150 features over 20000 (RF2)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_150_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+a2<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+a2
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+## a3 Results for glmnet 200 features over 20000 (RF2)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_200_20000_all_lines_test_added.csv"
+readr::write_csv(RESULTS,path = filename)
+a3<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+a3
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+## a4 Results for glmnet 250 features over 20000 (RF2)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_250_20000_all_lines_test_added.csv"
+readr::write_csv(RESULTS,path = filename)
+a4<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+a4
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+## a5 Results for glmnet 350 features over 20000 (RF2)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_350_20000_all_lines_test_added.csv"
+#readr::write_csv(RESULTS,path = filename)
+a5<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+a5
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+## a6 Results for glmnet 500 features over 20000 (RF2)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_500_20000_all_lines_test_added.csv"
+#readr::write_csv(RESULTS,path = filename)
+a6<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+a6
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+
+```
+
+# Results for liblinear 50 features over 20000 (RF2) (13)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.liblinear13_results_noscale_rf_selected_features_50_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+s1<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+s1
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear 100 features over 20000 (RF2) (13)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.liblinear13_results_noscale_rf_selected_features_100_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+s2<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+s2
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear 150 features over 20000 (RF2) (13)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.liblinear13_results_noscale_rf_selected_features_150_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+s3<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+s3
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear 200 features over 20000 (RF2) (13)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.liblinear13_results_noscale_rf_selected_features_200_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+s4<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+s4
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear 250 features over 20000 (RF2) (13)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.liblinear13_results_noscale_rf_selected_features_250_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+s5<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+s5
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear 350 features over 20000 (RF2) (13)
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.liblinear13_results_noscale_rf_selected_features_350_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+s6<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+s6
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+# Results for svr radial 50 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_noscale_rf_selected_features_50_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+r1<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+r1
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for svr radial 100 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_noscale_rf_selected_features_100_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+r2<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+r2
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+
+# Results for svr radial 150 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_noscale_rf_selected_features_150_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+r3<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+r3
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+
+# Results for svr radial 200 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_noscale_rf_selected_features_200_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+r4<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+r4
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+
+# Results for svr radial 250 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_noscale_rf_selected_features_250_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+r5<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+r5
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for svr radial 350 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_noscale_rf_selected_features_350_20000_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+r6<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+r6
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for svr radial noscale 50 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_50_20000_noscale_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+x1<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x1
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+# Results for svr radial noscale 100 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_100_20000_noscale_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+x2<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x2
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for svr radial noscale 150 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_150_20000_noscale_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+x3<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x3
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+## x4 Results for svr radial noscale 200 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_200_20000_noscale_all_lines_test_added.csv"
+#readr::write_csv(RESULTS,path = filename)
+x4<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x4
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+
+## x5 Results for svr radial noscale 250 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_250_20000_noscale_all_lines_test_added.csv"
+readr::write_csv(RESULTS,path = filename)
+x5<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x5
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+# Results for svr radial noscale 350 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_350_20000_noscale_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+x6<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x6
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+# Results for svr radial noscale 500 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_500_20000_noscale_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+x7<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x7
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for svr radial noscale 750 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_350_20000_noscale_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+x6<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x6
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for svr radial noscale 1000 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_350_20000_noscale_all_lines.csv"
+#readr::write_csv(RESULTS,path = filename)
+x6<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x6
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+## z4 Results for pls 500 featres
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.pls_results_rf_selected_features_500_20000_noscale_all_lines_test_added.csv"
+#readr::write_csv(RESULTS,path = filename)
+z4<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+z4
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+## z3 Results for pls 350 featres
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.pls_results_rf_selected_features_350_20000_noscale_all_lines_test_added.csv"
+readr::write_csv(RESULTS,path = filename)
+z3<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+z3
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+## z2 Results for pls 250 featres
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.pls_results_rf_selected_features_250_20000_noscale_all_lines_test_added.csv"
+readr::write_csv(RESULTS,path = filename)
+z2<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+z2
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+## z1 Results for pls 200 featres
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.pls_results_rf_selected_features_200_20000_noscale_all_lines_test_added.csv"
+#readr::write_csv(RESULTS,path = filename)
+z1<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+z1
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+## Results for pls 500 featres center
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.pls_results_rf_selected_features_500_20000_noscale_center_all_lines_test_added.csv"
+#readr::write_csv(RESULTS,path = filename)
+z1c<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+z1c
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+## Results for pls 350 featres center
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.pls_results_rf_selected_features_350_20000_noscale_center_all_lines_test_added.csv"
+#readr::write_csv(RESULTS,path = filename)
+z2c<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+z2c
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+## Results for pls 250 featres center
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.pls_results_rf_selected_features_250_20000_noscale_center_all_lines_test_added.csv"
+readr::write_csv(RESULTS,path = filename)
+z3c<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+z3c
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+## Results for pls 200 featres center
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.pls_results_rf_selected_features_200_20000_noscale_center_all_lines_test_added.csv"
+readr::write_csv(RESULTS,path = filename)
+z4c<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+z4c
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Heatmap results per dataset 
+
+```{r fig.height=8, fig.width=8}
+library(gridExtra)
+library(ggplot2)
+#a0$type<-"glmnet50"
+#a1$type<-"glmnet100"
+#a2$type<-"glmnet150"
+a3$type<-"glmnet200"
+a4$type<-"glmnet250"
+a5$type<-"glmnet350"
+a6$type<-"glmnet500"
+#s1$type<-"liblinear50"
+#s2$type<-"liblinear100"
+#s3$type<-"liblinear150"
+#s4$type<-"liblinear200" 
+#s5$type<-"liblinear250" 
+#s6$type<-"liblinear350"
+#x1$type<-"svr50"
+#x2$type<-"svr100"
+#x3$type<-"svr150"
+x4$type<-"svr200"
+x5$type<-"svr250"
+#x6$type<-"svr350"
+z4$type<-"pls500"
+z3$type<-"pls350"
+z2$type<-"pls250"
+z1$type<-"pls200"
+#z4$type<-"pls500c"
+
+heatmap <-rbind(a3,a4,a5,a6,
+                
+                x4,x5,
+                z1,z2,z3,z4)
+plot2<- heatmap  %>% group_by(type,datasets) %>% summarise(pearson=mean(pearson)) %>% arrange(pearson) %>%
+  ggplot()+
+  geom_tile(aes(x=type,y=datasets,fill=pearson))+
+  scale_fill_gradient(low = "red", high = "white",limits=c(0.4, 1),)+
+  theme(axis.text.x=element_text(angle=45,hjust=1))
+  
+  
+plot1<- heatmap %>% group_by(type,datasets) %>% summarise(spearman=mean(spearman)) %>% arrange(spearman) %>%
+  ggplot()+
+  geom_tile(aes(x=type,y=datasets,fill=spearman))+
+  scale_fill_gradient(low = "red", high = "white",limits=c(0.4, 1),)+
+  theme(axis.text.x=element_text(angle=45,hjust=1))
+
+
+plot3<- heatmap %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>% group_by(type,datasets) %>% summarise(pearson=mean(pearson)) %>% arrange(pearson) %>%
+  ggplot()+
+  geom_tile(aes(x=type,y=datasets,fill=pearson))+
+  scale_fill_gradient(low = "red", high = "white",limits=c(0.4, 1),)+
+  theme(axis.text.x=element_text(angle=45,hjust=1))
+  
+  
+plot4<-heatmap %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>% group_by(type,datasets) %>% summarise(spearman=mean(spearman)) %>% arrange(spearman) %>%
+  ggplot()+
+  geom_tile(aes(x=type,y=datasets,fill=spearman))+
+  scale_fill_gradient(low = "red", high = "white",limits=c(0.4, 1),)+
+  theme(axis.text.x=element_text(angle=45,hjust=1))
+
+gridExtra::grid.arrange(plot2,plot1,plot3,plot4,ncol=2) 
+```
+
+
+# Heatmap per dataset (Pearson)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+#library(ggplotify)
+#par(mfrow=c(2,1))
+pattern="DS"
+
+heatmap %>% group_by(type,datasets) %>%  summarise(pearson=mean(pearson)) %>% reshape2::acast(type ~datasets) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Blues")
+```
+
+# Heatmap per dataset (Spearman)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+heatmap %>% group_by(type,datasets) %>% summarise(spearman=mean(spearman)) %>% reshape2::acast(type ~datasets) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Reds")
+```
+

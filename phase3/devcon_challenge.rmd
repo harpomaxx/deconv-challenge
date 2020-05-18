@@ -1,0 +1,223 @@
+---
+title: "DEVCON Challenge results"
+output: 
+  html_notebook: 
+    code_folding: hide
+    toc: yes
+---
+```{r}
+library(readr)
+library(dplyr)
+```
+
+# Results for SVR linear using a reduced set of features
+```{r message=FALSE, warning=FALSE}
+#RESULTS %>% arrange(cells)
+#readr::write_csv(RESULTS,path = "./devcon_challenge.svr_results_feat_less.csv")
+readr::read_csv("./devcon_challenge.svr_results_feat_less.csv")  %>% filter(datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+
+readr::read_csv("./devcon_challenge.svr_results_feat_less.csv")  %>% filter(datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>% summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+
+```
+
+# Results for SVR linear using a full set of features
+
+```{r message=FALSE, warning=FALSE}
+#RESULTS %>% arrange(cells)
+#readr::write_csv(RESULTS,path = "./devcon_challenge.svr_full_results.csv")
+readr::read_csv("./devcon_challenge.svr_full_results.csv")  %>% filter(datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.svr_full_results.csv")  %>% filter(datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>% summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+
+
+```
+
+
+
+# Results for SVR Radial using a full set of features
+
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.svr_radial_results.csv")
+readr::read_csv("./devcon_challenge.svr_radial_results.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+
+
+readr::read_csv("./devcon_challenge.svr_radial_results.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+
+```
+
+# Results for SVR Radial using a reduced set of features
+
+```{r}
+readr::write_csv(RESULTS,path = "./devcon_challenge.svr_radial_results_less_feat.csv")
+readr::read_csv("./devcon_challenge.svr_radial_results_less_feat.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+
+
+# Results for liblinear  using a full set of  features (11 – L2-regularized L2-loss support vector regression (primal))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_11_results.csv")
+readr::read_csv("./devcon_challenge.liblinear_11_results.csv")  %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3"))
+
+readr::read_csv("./devcon_challenge.liblinear_11_results.csv")  %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+# Results for liblinear using a full set of  features ( 12 - L2-regularized L2-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_12_results.csv")
+readr::read_csv("./devcon_challenge.liblinear_12_results.csv")  %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.liblinear_12_results.csv")  %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear using a full set of  features (13 L2-regularized L1-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_13_results.csv")
+readr::read_csv("./devcon_challenge.liblinear_13_results.csv")  %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+
+readr::read_csv("./devcon_challenge.liblinear_13_results.csv")  %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+
+```
+
+
+# Results for liblinear  using a reduced set of  features (11 – L2-regularized L2-loss support vector regression (primal))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_less_feat_results_11.csv")
+readr::read_csv("./devcon_challenge.liblinear_less_feat_results_11.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.liblinear_less_feat_results_11.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear  using a reduced set of  features ( 12 - L2-regularized L2-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_less_feat_results_12.csv")
+readr::read_csv("./devcon_challenge.liblinear_less_feat_results_12.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.liblinear_less_feat_results_12.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear 13 using a reduced set of  features (13 L2-regularized L1-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_less_feat_results_13.csv")
+
+readr::read_csv("./devcon_challenge.liblinear_less_feat_results_13.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.liblinear_less_feat_results_13.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+
+
+```
+
+# Results for rf  using a full set of  features
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.rf_results.csv")
+readr::read_csv("./devcon_challenge.rf_results.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+
+readr::read_csv("./devcon_challenge.rf_results.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear using a full set of  features (noscale) ( 12 - L2-regularized L2-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_12_results_noscale.csv")
+readr::read_csv("./devcon_challenge.liblinear_12_results_noscale.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+
+readr::read_csv("./devcon_challenge.liblinear_12_results_noscale.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+# Results for liblinear  using  (noscale) 1000 features ( 12 - L2-regularized L2-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_12_results_noscale_rf_selected_features.csv")
+
+readr::read_csv("./devcon_challenge.liblinear_12_results_noscale_rf_selected_features.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+
+readr::read_csv("./devcon_challenge.liblinear_12_results_noscale_rf_selected_features.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+
+# Results for liblinear using a full set of  features (noscale) 1500 features ( 12 - L2-regularized L2-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_12_results_noscale_rf_selected_features_1500.csv")
+readr::read_csv("./devcon_challenge.liblinear_12_results_noscale_rf_selected_features_1500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.liblinear_12_results_noscale_rf_selected_features_1500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear  (noscale) 1500 features. (13 L2-regularized L1-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1500.csv")
+
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3"))  %>% summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear features (noscale) 1000 features. (13 L2-regularized L1-loss support vector regression (dual))
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1000.csv")
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1000.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3"))  
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_1000.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3"))  %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for liblinear  (noscale) 2000 features. (13 L2-regularized L1-loss support vector regression (dual))
+
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_2000.csv")
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_2000.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_2000.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+# Results for liblinear using (noscale) 250 features. (13 L2-regularized L1-loss support vector regression (dual))
+
+
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_250.csv")
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_250.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.liblinear_13_results_noscale_rf_selected_features_250.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+# Results for glmnet using 5000 features
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_5000.csv")
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_5000.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_5000.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for glmnet using 250 features
+```{r message=FALSE, warning=FALSE}
+readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_250.csv")
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_250.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_250.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+# Results for glmnet using 500 features
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_500.csv")
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for glmnet using 1000 features
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1000.csv")
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1000.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1000.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for glmnet using 1500 features
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1500.csv")
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_1500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for glmnet using 2500 features
+```{r message=FALSE, warning=FALSE}
+#readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_selected_features_2500.csv")
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_2500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_selected_features_2500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+# Results for glmnet using 2500 features (fullset of 20000)
+```{r message=FALSE, warning=FALSE}
+readr::write_csv(RESULTS,path = "./devcon_challenge.gmlnet_results_noscale_rf_20000_selected_features_2500.csv")
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_20000_selected_features_2500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) 
+readr::read_csv("./devcon_challenge.gmlnet_results_noscale_rf_20000_selected_features_2500.csv") %>% filter(!is.na(pearson)) %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
