@@ -1,0 +1,146 @@
+---
+title: "DECONV DREAM Challenege 2020 (5)"
+output: 
+  html_notebook: 
+    code_folding: hide
+    toc: yes
+    toc_float: true
+---
+
+
+
+```{r fig.height=8, fig.width=8}
+library(gridExtra)
+library(ggplot2)
+a3$type<-"glmnet200"
+a4$type<-"glmnet250"
+a5$type<-"glmnet350"
+a6$type<-"glmnet500"
+a7$type<-"glmnet1000"
+a8$type<-"glmnet2500"
+a9$type<-"glmnet5000"
+a10$type<-"glmnet10000"
+a11$type<-"glmnet20000"
+
+x1$type<-"svr200"
+x2$type<-"svr250"
+x3$type<-"svr300"
+x4$type<-"svr500"
+x5$type<-"svr750"
+x6$type<-"svr1000"
+x7$type<-"svr1250"
+x8$type<-"svr2000"
+x9$type<-"svr5000"
+
+
+
+z4$type<-"pls500"
+z3$type<-"pls350"
+z2$type<-"pls250"
+z1$type<-"pls200"
+
+heatmap <-rbind(a3,a4,a5,a6,a7,a8,a9,a10,a11,
+                
+                x1,x2,x3,x4,x5,x6,x7,x8,x9,
+                z1,z2,z3,z4)
+
+ 
+```
+
+
+## Heatmap per cell (Pearson)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+#library(ggplotify)
+#par(mfrow=c(2,1))
+pattern="DS"
+
+heatmap %>% group_by(type,cells) %>%  summarise(pearson=mean(pearson)) %>% reshape2::acast(type ~cells) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Blues")
+```
+## Heatmap per cell rnaseq (Pearson)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+
+heatmap %>% filter(datasets %in% c("DS446395","DS500","FIAS4")) %>% group_by(type,cells) %>%  summarise(pearson=mean(pearson)) %>% reshape2::acast(type ~cells) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Blues")
+```
+
+## Heatmap per cell (Spearman)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+heatmap %>% group_by(type,cells) %>% summarise(spearman=mean(spearman)) %>% reshape2::acast(type ~cells) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Reds")
+```
+
+## Heatmap per cell rnaseq (Spearman)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+heatmap  %>% filter(datasets %in% c("DS446395","DS500","FIAS4")) %>% group_by(type,cells) %>% summarise(spearman=mean(spearman)) %>% reshape2::acast(type ~cells) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Reds")
+```
+
+
+
+
+## Heatmap per dataset (Pearson)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+#library(ggplotify)
+#par(mfrow=c(2,1))
+pattern="DS"
+
+heatmap %>% group_by(type,datasets) %>%  summarise(pearson=mean(pearson)) %>% reshape2::acast(type ~datasets) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Blues")
+```
+## Heatmap per dataset rnaseq (Pearson)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+
+heatmap %>% filter(datasets %in% c("DS446395","DS500","FIAS4")) %>% group_by(type,datasets) %>%  summarise(pearson=mean(pearson)) %>% reshape2::acast(type ~datasets) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Blues")
+```
+
+## Heatmap per dataset (Spearman)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+heatmap %>% group_by(type,datasets) %>% summarise(spearman=mean(spearman)) %>% reshape2::acast(type ~datasets) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Reds")
+```
+
+## Heatmap per dataset rnaseq (Spearman)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+heatmap  %>% filter(datasets %in% c("DS446395","DS500","FIAS4")) %>% group_by(type,datasets) %>% summarise(spearman=mean(spearman)) %>% reshape2::acast(type ~datasets) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Reds")
+```
+
+
+
+
+
+
+## x6 [svr1000] Results for svr radial noscale 1000 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_1000_20000_noscale_newmix_spearson_coarsegrain.csv"
+readr::write_csv(RESULTS,path = filename)
+x6<- readr::read_csv(filename)  %>%  mutate(pearson=ifelse(is.na(pearson),0,pearson),
+                                      spearman=ifelse(is.na(spearman),0,spearman)
+                                      ) 
+x6
+x6 %>% summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+x6 %>% filter( datasets %in% c("DS446395","DS500","FIAS4")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+## x7 [svr1500] Results for svr radial noscale 1000 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_1500_20000_noscale_newmix_spearson_coarsegrain.csv"
+#readr::write_csv(RESULTS,path = filename)
+x7<- readr::read_csv(filename)  %>%  mutate(pearson=ifelse(is.na(pearson),0,pearson),
+                                      spearman=ifelse(is.na(spearman),0,spearman)
+                                      ) 
+
+x7
+x7 %>% summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+x7 %>% filter( datasets %in% c("DS446395","DS500","FIAS4")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+## x8 [svr2000] Results for svr radial noscale 2000 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_2000_20000_noscale_newmix_spearson_coarsegrain.csv"
+#readr::write_csv(RESULTS,path = filename)
+x8<- readr::read_csv(filename) # %>%  mutate(pearson=ifelse(is.na(pearson),0,pearson),
+                               #       spearman=ifelse(is.na(spearman),0,spearman)
+                               #      ) 
+
+x8
+x8 %>% summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+x8 %>%  filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3"))  %>% summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+

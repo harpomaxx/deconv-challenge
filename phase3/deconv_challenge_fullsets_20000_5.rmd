@@ -1,5 +1,5 @@
 ---
-title: "DECONV DREAM Challenege 2020 (3)"
+title: "DECONV DREAM Challenege 2020 (5)"
 output: 
   html_notebook: 
     code_folding: hide
@@ -27,11 +27,38 @@ z1$type<-"pls200"
 
 heatmap <-rbind(a3,a4,a5,a6,
                 
-                x1,x2,x4,x5,
+                x1,x2,x3,x4,
                 z1,z2,z3,z4)
 
  
 ```
+
+
+## Heatmap per cell (Pearson)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+#library(ggplotify)
+#par(mfrow=c(2,1))
+pattern="DS"
+
+heatmap %>% group_by(type,cells) %>%  summarise(pearson=mean(pearson)) %>% reshape2::acast(type ~cells) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Blues")
+```
+## Heatmap per cell rnaseq (Pearson)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+
+heatmap %>% filter(datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>% group_by(type,cells) %>%  summarise(pearson=mean(pearson)) %>% reshape2::acast(type ~cells) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Blues")
+```
+
+## Heatmap per cell (Spearman)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+heatmap %>% group_by(type,cells) %>% summarise(spearman=mean(spearman)) %>% reshape2::acast(type ~cells) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Reds")
+```
+
+## Heatmap per cell rnaseq (Spearman)
+```{r fig.width=7, message=FALSE, warning=FALSE}
+heatmap  %>% filter(datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>% group_by(type,cells) %>% summarise(spearman=mean(spearman)) %>% reshape2::acast(type ~cells) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Reds")
+```
+
+
 
 
 ## Heatmap per dataset (Pearson)
@@ -40,7 +67,7 @@ heatmap <-rbind(a3,a4,a5,a6,
 #par(mfrow=c(2,1))
 pattern="DS"
 
-heatmap %>% group_by(type,cells) %>%  summarise(pearson=mean(pearson)) %>% reshape2::acast(type ~cells) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Blues")
+heatmap %>% group_by(type,datasets) %>%  summarise(pearson=mean(pearson)) %>% reshape2::acast(type ~datasets) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Blues")
 ```
 ## Heatmap per dataset rnaseq (Pearson)
 ```{r fig.width=7, message=FALSE, warning=FALSE}
@@ -58,9 +85,13 @@ heatmap %>% group_by(type,datasets) %>% summarise(spearman=mean(spearman)) %>% r
 heatmap  %>% filter(datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>% group_by(type,datasets) %>% summarise(spearman=mean(spearman)) %>% reshape2::acast(type ~datasets) %>% as.matrix() %>% d3heatmap::d3heatmap(colors = "Reds")
 ```
 
+
+
+
+
 ## a3 [glmnet200] Results for glmnet 200 features over 20000 (RF2)
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_200_20000_all_lines_test_added.csv"
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_200_20000_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 a3<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 a3
@@ -71,7 +102,7 @@ readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in%
 
 ## a4 [glmnet250] Results for glmnet 250 features over 20000 (RF2)
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_250_20000_all_lines_test_added.csv"
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_250_20000_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 a4<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 a4
@@ -81,7 +112,7 @@ readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in%
 
 ## a5 [glmnet350] Results for glmnet 350 features over 20000 (RF2)
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_350_20000_all_lines_test_added.csv"
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_350_20000_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 a5<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 a5
@@ -91,7 +122,7 @@ readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in%
 
 ## a6 [glmnet500] Results for glmnet 500 features over 20000 (RF2)
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_500_20000_all_lines_test_added.csv"
+filename<-"./devcon_challenge.glmnet_results_noscale_rf_selected_features_500_20000_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 a6<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 a6
@@ -101,7 +132,7 @@ readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in%
 ```
 ## x1 [svr200] Results for svr radial noscale 200 features over 20000 (RF2) 
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.svr_results_rf_selected_features_200_20000_noscale_all_lines_test_added.csv"
+filename<-"./devcon_challenge.svr_results_rf_selected_features_200_20000_noscale_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 x1<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 x1
@@ -113,7 +144,7 @@ readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in%
 
 ## x2 [svr250] Results for svr radial noscale 250 features over 20000 (RF2) 
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.svr_results_rf_selected_features_250_20000_noscale_all_lines_test_added.csv"
+filename<-"./devcon_challenge.svr_results_rf_selected_features_250_20000_noscale_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 x2<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 x2
@@ -124,7 +155,7 @@ readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in%
 
 ## x3 [svr350] Results for svr radial noscale 350 features over 20000 (RF2) 
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.svr_results_rf_selected_features_350_20000_noscale_all_lines_test_added.csv"
+filename<-"./devcon_challenge.svr_results_rf_selected_features_350_20000_noscale_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 x3<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 x3
@@ -135,7 +166,7 @@ readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in%
 
 ## x4 [svr500] Results for svr radial noscale 500 features over 20000 (RF2) 
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.svr_results_rf_selected_features_500_20000_noscale_all_lines_test_added.csv"
+filename<-"./devcon_challenge.svr_results_rf_selected_features_500_20000_noscale_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 x4<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 x4
@@ -143,9 +174,42 @@ readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mea
 readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
 ```
 
+## x5 [svr750] Results for svr radial noscale 750 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_750_20000_noscale_newmix_spearson.csv"
+#readr::write_csv(RESULTS,path = filename)
+x5<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x5
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+## x6 [svr1000] Results for svr radial noscale 1000 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_1000_20000_noscale_newmix_spearson.csv"
+#readr::write_csv(RESULTS,path = filename)
+x6<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x6
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+## x7 [svr1250] Results for svr radial noscale 1250 features over 20000 (RF2) 
+```{r message=FALSE, warning=FALSE}
+filename<-"./devcon_challenge.svr_results_rf_selected_features_1250_20000_noscale_newmix_spearson.csv"
+readr::write_csv(RESULTS,path = filename)
+x7<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
+x7
+readr::read_csv(filename) %>% filter(!is.na(pearson)) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in% c("DS446395","DS500","CIAS4","CIVA3")) %>%  summarise(pearson_mean=mean(pearson),spearman_mean=mean(spearman))
+```
+
+
+
 ## z4 [pls500] Results for pls 500 features (RF)
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.pls_results_rf_selected_features_500_20000_noscale_all_lines_test_added.csv"
+filename<-"./devcon_challenge.pls_results_rf_selected_features_500_20000_noscale_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 z4<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 z4
@@ -154,7 +218,7 @@ readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in%
 ```
 ## z3 [pls350] Results for pls 350 features (RF)
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.pls_results_rf_selected_features_350_20000_noscale_all_lines_test_added.csv"
+filename<-"./devcon_challenge.pls_results_rf_selected_features_350_20000_noscale_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 z3<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 z3
@@ -163,7 +227,7 @@ readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in%
 ```
 ## z2 [pls250] Results for pls 250 features (RF)
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.pls_results_rf_selected_features_250_20000_noscale_all_lines_test_added.csv"
+filename<-"./devcon_challenge.pls_results_rf_selected_features_250_20000_noscale_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 z2<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 z2
@@ -173,7 +237,7 @@ readr::read_csv(filename) %>% filter(!is.na(pearson))  %>% filter( datasets %in%
 
 ## z1 [pls200] Results for pls 200 features (RF)
 ```{r message=FALSE, warning=FALSE}
-filename<-"./devcon_challenge.pls_results_rf_selected_features_200_20000_noscale_all_lines_test_added.csv"
+filename<-"./devcon_challenge.pls_results_rf_selected_features_200_20000_noscale_newmix_spearson.csv"
 #readr::write_csv(RESULTS,path = filename)
 z1<-readr::read_csv(filename) %>% filter(!is.na(pearson)) 
 z1

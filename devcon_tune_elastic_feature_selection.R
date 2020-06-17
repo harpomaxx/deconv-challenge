@@ -3,10 +3,12 @@
 
 setwd("/home/harpo/Dropbox/ongoing-work/git-repos/devcon/phase3/")
 # Load RF models
-#load("results_rf_devcon_bestmodels_fgdata_cps_less_feat.rdata")
-load("results_rf_devcon_bestmodels_fgdata_cps_20000_feat_2.rdata")
-# Load dataset with full set of features
-load("deconv_cgdata_cps_new_feat.RData")
+#load("results_rf_devcon_bestmodels_finegrain_data_cps_20000_newmix_last3.rdata")
+load("results_rf_devcon_bestmodels_coarsegrain_data_cps_20000_newmix_last3.rdata")
+
+# Load dataset with full set of reatures
+load("deconv_cgdata_cps_new_feat_last2.RData") #coarse grain
+#load("deconv_fgdata_cps_new_feat_last3.RData") # fine grain
 library(caret)
 library(glmnet)
 library(foreach)
@@ -20,7 +22,7 @@ registerDoMC(cores=6)
 
 
 alpha_range <- c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9)
-lambda_ratio_range <- c(10e-8,10e-7,10e-6)
+lambda_ratio_range <- c(10e-8,10e-7,10e-6,10e-5,10e-4,10e-3)
 
 #### MAIN 
 
@@ -87,8 +89,12 @@ for (label_number in rownames(trainprop)) {
     
   }
   # Select best model ---------
-  best_model <- results %>% arrange(desc(pearson)) %>% filter(row_number()==1) 
-  print(paste("selecting best model for ",best_model$label_number," : ",best_model$alpha, ", ", best_model$lambda_ratio," Pearson value : ", best_model$pearson,sep=""))
+  best_model <- results %>% mutate(spearson=(pearson+spearman)/2) %>% arrange(desc(spearson)) %>% filter(row_number()==1) 
+  print(paste("selecting best model for ",best_model$label_number," : ",best_model$alpha, ", ", 
+              best_model$lambda_ratio," Pearson value : ", best_model$pearson  %>% round(digits = 4),
+              " Spearman value : ", best_model$spearman %>% round(digits = 4),
+              " Spearson value : ", best_model$spearson %>% round(digits = 4),
+              sep=""))
    trainset <- rbind(trainset,testset)
    labels <- c(labels,labels_test)
    model <- cv.glmnet(
@@ -104,8 +110,8 @@ for (label_number in rownames(trainprop)) {
     lower.limit = -Inf
   )
   results_final_models[[label_number]]<-model
-  save(results_final_models,file = paste0("results_glmnet_devcon_bestmodels_fgdata_cps_20000_2",opt$experimenttag,".rdata"),compress = "gzip")
+  save(results_final_models,file = paste0("results_glmnet_devcon_bestmodels_coarsegrain_data_cps_20000_2",opt$experimenttag,".rdata"),compress = "gzip")
   results_final<-rbind(results_final,results)
-  readr::write_csv(results_final,path=paste0("results_glmnet_devcon_fgdata_cps_20000_2",opt$experimenttag,".csv"))
+  readr::write_csv(results_final,path=paste0("results_glmnet_devcon_coarsegrain_data_cps_20000_2",opt$experimenttag,".csv"))
 }
 

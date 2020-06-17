@@ -3,9 +3,9 @@
 
 setwd("/home/harpo/Dropbox/ongoing-work/git-repos/devcon/phase3/")
 # Load RF models
-load("results_rf_devcon_bestmodels_fgdata_cps_20000_feat_2.rdata")
+load("results_rf_devcon_bestmodels_finegrain_data_cps_20000_newmix_last3.rdata")
 # Load dataset with full set of reatures
-load("deconv_cgdata_cps_new_feat.RData")
+load("deconv_fgdata_cps_new_feat_last3.RData")
 #library(caret)
 require(tibble)
 require(randomForest)
@@ -112,8 +112,11 @@ for (label_number in rownames(trainprop)) {
     partial_results 
     
   }
-  best_model <- results %>% arrange(desc(pearson)) %>% filter(row_number()==1) 
-  print(paste("selecting best model for ", best_model$label_number," : ",best_model$ncomp," Pearson value : ", best_model$pearson %>% round(digits = 4)," Spearman value : ", best_model$spearman %>% round(digits = 4),
+  best_model <- results %>% mutate(spearson=(pearson+spearman)/2) %>% arrange(desc(spearson)) %>% filter(row_number()==1) 
+  print(paste("selecting best model for ", best_model$label_number," : ",best_model$ncomp,
+              " Pearson value : ", best_model$pearson %>% round(digits = 4),
+              " Spearman value : ", best_model$spearman %>% round(digits = 4),
+              " Spearson value : ", best_model$spearson %>% round(digits = 4),
               sep=""))
   data_train<-rbind(data_train,data_test)
   labels<-rbind(labels,labels_test)
@@ -125,9 +128,9 @@ for (label_number in rownames(trainprop)) {
     ncomp = best_model$ncomp
     )
   results_final_models[[label_number]]<-list(model=model,ncomp=best_model$ncomp)
-  save(results_final_models,file = paste0("results_pls_devcon_bestmodels_fgdata_cps_20000_2_noscale",opt$experimenttag,".rdata"),compress = "gzip")
+  save(results_final_models,file = paste0("results_pls_devcon_bestmodels_finegrain_data_cps_20000_2_noscale",opt$experimenttag,".rdata"),compress = "gzip")
   results_final<-rbind(results_final,results)
-  readr::write_csv(results_final,path=paste0("results_pls_devcon_fgdata_cps_20000_2_noscale_center",opt$experimenttag,".csv"))
+  readr::write_csv(results_final,path=paste0("results_pls_devcon_finegrain_cps_20000_2_noscale_center",opt$experimenttag,".csv"))
 }
 
 # Shutdown cluster neatly
